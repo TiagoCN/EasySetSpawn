@@ -3,38 +3,48 @@ package me.clickpt.easysetspawn;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.MetricsLite;
 
 public class Main extends JavaPlugin {
-	
+
 	private static Main instance;
-	
-	private static String config_version;
-	private static boolean new_version;
+
+	private final static String config_version = "2.1";
+	private static boolean new_version = false;
 
 	public void onEnable() {
 		instance = this;
-		
-		config_version = "2.0";
-		new_version = false;
-		
+
 		Config.loadConfig(this);
-		checkVersion();
-		ConfigUtils.load();
-		
+		try {
+			checkVersion();
+		} catch (IOException e1) {
+			getLogger().warning("Error checking for updates!");
+		}
+
 		getCommand("setspawn").setExecutor(new Commands());
 		getCommand("spawn").setExecutor(new Commands());
-		getCommand("ess").setExecutor(new Commands());
+		getCommand("easyss").setExecutor(new Commands());
 
-		Bukkit.getPluginManager().registerEvents(new Events(), this);
+		getServer().getPluginManager().registerEvents(new Events(), this);
+
+		if (Config.getConfig().getBoolean("metrics")) {
+			try {
+				MetricsLite metrics = new MetricsLite(this);
+				metrics.start();
+			} catch (IOException e) {
+				getLogger().warning("Error loading MetricsLite!");
+			} finally {
+				getLogger().info("MetricsLite enabled!");
+			}
+		}
 
 		getLogger().info("--------------------------");
 		getLogger().info("");
-		getLogger().info("EasySetSpawn enabled!");
+		getLogger().info(getDescription().getName() + " enabled!");
 		getLogger().info("");
 		getLogger().info("--------------------------");
 	}
@@ -42,57 +52,43 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		getLogger().info("--------------------------");
 		getLogger().info("");
-		getLogger().info("EasySetSpawn disabled!");
+		getLogger().info(getDescription().getName() + " disabled!");
 		getLogger().info("");
 		getLogger().info("--------------------------");
 	}
 
 	// -------------------------------------
-	
-	protected void checkVersion() {
-		if(Config.getConfig().getBoolean("check-version.enabled")) {
-			try {
-				URL url = new URL("http://clickpt.esy.es/dev/essversion.txt");
-				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-				String str;
-				String s = null;
 
-				while ((str = br.readLine()) != null)
-					s = str;
+	protected void checkVersion() throws IOException {
+		if (Config.getConfig().getBoolean("check-version.enabled")) {
+			URL url = new URL("https://raw.githubusercontent.com/ClickPT/EasySetSpawn/master/version.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+			String str;
 
-				if (!s.equalsIgnoreCase(getPluginVersion()))
+			if((str = br.readLine()) != null)
+				if(!str.equalsIgnoreCase(getPluginVersion()) && !str.contains("<") && str.contains("."))
 					new_version = true;
-				
-				if(s.equalsIgnoreCase("</html>"))
-					new_version = false;
 
-				br.close();
-			} catch (MalformedURLException e1) {
-				new_version = false;
-			} catch (IOException e1) {
-				new_version = false;
-			}
-		} else {
-			new_version = false;
+			br.close();
 		}
 	}
-	
+
 	// -------------------------------------
 
 	protected static Main getInstance() {
 		return instance;
 	}
-	
+
 	// -------------------------------------
-	
+
 	public static String getPluginVersion() {
 		return instance.getDescription().getVersion();
 	}
-	
+
 	public static String getConfigVersion() {
 		return config_version;
 	}
-	
+
 	public static boolean hasNewVersion() {
 		return new_version;
 	}

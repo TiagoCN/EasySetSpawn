@@ -9,60 +9,63 @@ import org.bukkit.entity.Player;
 
 public class Utils {
 	
-	public static void teleportToSpawn(Player player) {
-		try {
-			World w = Bukkit.getServer().getWorld(Config.getConfig().getString("spawn.world"));
+	public static Location getSpawnLocation() {
+		String wname = Config.getConfig().getString("spawn.world");
+		
+		if(wname == null || wname.equalsIgnoreCase("")) {
+			return null;
+		} else {
+			World w = Bukkit.getServer().getWorld(wname);
 			double x = Config.getConfig().getDouble("spawn.x");
 			double y = Config.getConfig().getDouble("spawn.y");
 			double z = Config.getConfig().getDouble("spawn.z");
 			float yaw = Config.getConfig().getInt("spawn.yaw");
 			float pitch = Config.getConfig().getInt("spawn.pitch");
 			
-			player.teleport(new Location(w, x, y, z, yaw, pitch));
-		} catch(Exception e) {
-			Bukkit.getLogger().warning("[EasySetSpawn] Spawn not set.");
+			return new Location(w, x, y, z, yaw, pitch);
+		}
+	}
+	
+	public static void teleportToSpawn(Player player) {
+		Location l = getSpawnLocation();
+		
+		if(l == null) {
+			Main.getInstance().getLogger().warning("Spawn not set.");
 			
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.spawn-not-set")));
+		} else {
+			player.teleport(l);
 		}
 	}
 	
 	public static void teleportToSpawn(Player player, boolean message) {
-		try {
-			World w = Bukkit.getServer().getWorld(Config.getConfig().getString("spawn.world"));
-			double x = Config.getConfig().getDouble("spawn.x");
-			double y = Config.getConfig().getDouble("spawn.y");
-			double z = Config.getConfig().getDouble("spawn.z");
-			float yaw = Config.getConfig().getInt("spawn.yaw");
-			float pitch = Config.getConfig().getInt("spawn.pitch");
-			
-			player.teleport(new Location(w, x, y, z, yaw, pitch));
-			
-			if(message)
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.command-teleport")));
-		} catch(Exception e) {
-			Bukkit.getLogger().warning("[EasySetSpawn] Spawn not set.");
+		Location l = getSpawnLocation();
+		
+		if(l == null) {
+			Main.getInstance().getLogger().warning("Spawn not set.");
 			
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.spawn-not-set")));
+		} else {
+			player.teleport(l);
+			
+			if(message && Config.getConfig().getBoolean("spawn-command.message-enabled"))
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("spawn-command.message")));
 		}
 	}
 	
 	public static void teleportToSpawn(Player player, CommandSender sender) {
-		try {
-			World w = Bukkit.getServer().getWorld(Config.getConfig().getString("spawn.world"));
-			double x = Config.getConfig().getDouble("spawn.x");
-			double y = Config.getConfig().getDouble("spawn.y");
-			double z = Config.getConfig().getDouble("spawn.z");
-			float yaw = Config.getConfig().getInt("spawn.yaw");
-			float pitch = Config.getConfig().getInt("spawn.pitch");
+		Location l = getSpawnLocation();
+		
+		if(l == null) {
+			Main.getInstance().getLogger().warning("Spawn not set.");
 			
-			player.teleport(new Location(w, x, y, z, yaw, pitch));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.spawn-not-set")));
+		} else {
+			player.teleport(l);
 			
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.command-teleport")));
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.teleported-other-player")).replaceAll("%target%", player.getName()));
-		} catch(Exception e) {
-			Bukkit.getLogger().warning("[EasySetSpawn] Spawn not set.");
-			
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.spawn-not-set")));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("spawn-command.message")));
+			if(player.getName() != sender.getName())
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.teleported-other-player")).replaceAll("%target%", player.getName()));
 		}
 	}
 	

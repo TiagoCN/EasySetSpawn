@@ -19,7 +19,7 @@ public class Commands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("setspawn")) {
 			if(!(sender instanceof Player)) {
-				sender.sendMessage(ConfigUtils.console_use_command);
+				sender.sendMessage(ConfigUtil.getConsoleUseCommand());
 				return true;
 			}
 			
@@ -42,25 +42,25 @@ public class Commands implements CommandExecutor {
 				p.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.spawn-successfully-set")));
 			}
 			else {
-				p.sendMessage(ConfigUtils.no_permission);
+				p.sendMessage(ConfigUtil.getNoPermission());
 			}
 		}
 		
 		if(cmd.getName().equalsIgnoreCase("spawn")) {
 			if(args.length == 0) {
 				if(!(sender instanceof Player)) {
-					sender.sendMessage(ConfigUtils.console_use_command);
+					sender.sendMessage(ConfigUtil.getConsoleUseCommand());
 					return true;
 				}
 				
 				final Player p = (Player) sender;
 				
-				if(Config.getConfig().getBoolean("options.spawn-command-need-permission")) {
+				if(Config.getConfig().getBoolean("spawn-command.need-permission")) {
 					if(Utils.hasPermission(p, "spawn")) {
 						spawnCommand(p);
 					}
 					else {
-						sender.sendMessage(ConfigUtils.no_permission);
+						sender.sendMessage(ConfigUtil.getNoPermission());
 					}
 				}
 				else {
@@ -74,71 +74,63 @@ public class Commands implements CommandExecutor {
 				Player target = Bukkit.getServer().getPlayer(args[0]);
 				
 				if(target == null) {
-					sender.sendMessage(ConfigUtils.player_not_found);
+					sender.sendMessage(ConfigUtil.getPlayerNotFound());
 					return true;
 				}
 				
 				Utils.teleportToSpawn(target, sender);
 			}
 			else {
-				sender.sendMessage(ConfigUtils.no_permission);
+				sender.sendMessage(ConfigUtil.getNoPermission());
 			}
 		}
 		
-		if(cmd.getName().equalsIgnoreCase("ess")) {
+		if(cmd.getName().equalsIgnoreCase("easyss") || cmd.getName().equalsIgnoreCase("ess")) {
 			if(args.length == 0 || args[0].equalsIgnoreCase("help")) {
 				if(Utils.hasPermission(sender, "help")) {
-					sender.sendMessage("§6EasySetSpawn Commands:");
-					sender.sendMessage("§6/spawn - Teleport to spawn.");
-					sender.sendMessage("§6/setspawn - Set spawn.");
-					sender.sendMessage("§6/ess or /ess help - Commands list.");
-					sender.sendMessage("§6/ess info - Plugin info.");
-					sender.sendMessage("§6/ess setdelay - Set spawn delay. 0 = no delay");
-					sender.sendMessage("§6/ess reload - Reload config.");
+					sender.sendMessage("§7===== §bEasySetSpawn §7=====");
+					sender.sendMessage("§b/spawn §7- Teleport to spawn.");
+					sender.sendMessage("§b/setspawn §7- Set spawn.");
+					sender.sendMessage("§b/" + cmd.getName() + " or /" + cmd.getName() + " help §7- Commands list.");
+					sender.sendMessage("§b/" + cmd.getName() + " info §7- Plugin info.");
+					sender.sendMessage("§b/" + cmd.getName() + " setdelay §7- Set spawn delay. 0 = no delay");
+					sender.sendMessage("§b/" + cmd.getName() + " reload §7- Reload config.");
 				}
 				else {
-					sender.sendMessage(ConfigUtils.no_permission);
+					sender.sendMessage(ConfigUtil.getNoPermission());
 				}
 			}
 			else if(args[0].equalsIgnoreCase("info")) {
 				if(Utils.hasPermission(sender, "info")) {
-					sender.sendMessage("§6EasySet5pawn version " + Main.getPluginVersion() + " created by ClickPT.");
-					
-					if(Main.hasNewVersion()) {
-						sender.sendMessage("§6Version outdated: §cYES");
-					}
-					else {
-						sender.sendMessage("§6Version outdated: §7NO");
-					}
+					sender.sendMessage("§bEasySetSpawn§7 version §b" + Main.getPluginVersion() + " §7created by §bClickPT§7.");
 				}
 				else {
-					sender.sendMessage(ConfigUtils.no_permission);
+					sender.sendMessage(ConfigUtil.getNoPermission());
 				}
 			}
 			else if(args[0].equalsIgnoreCase("setdelay")) {
 				if(Utils.hasPermission(sender, "setdelay")) {
 					if(args.length == 1) {
-						sender.sendMessage("§6Currently teleport delay: " + Config.getConfig().getInt("teleport-delay-in-seconds") + " seconds.");
+						sender.sendMessage("§7Currently teleport delay: §b" + Config.getConfig().getInt("teleport-delay-in-seconds") + " seconds§7.");
 					}
 					else {
 						try {
 							Config.getConfig().set("teleport-delay-in-seconds", Integer.parseInt(args[1]));
 							Config.saveConfigFile();
 							
-							sender.sendMessage("§6Teleport delay changed to: " + Integer.parseInt(args[1]) + " seconds.");
+							sender.sendMessage("§7Teleport delay changed to: §b" + Integer.parseInt(args[1]) + " seconds§7.");
 						} catch(Exception e) {
 							sender.sendMessage("§cYou can only use numbers.");
 						}
 					}
 				}
 				else {
-					sender.sendMessage(ConfigUtils.no_permission);
+					sender.sendMessage(ConfigUtil.getNoPermission());
 				}
 			}
 			else if(args[0].equalsIgnoreCase("reload")) {
 				if(Utils.hasPermission(sender, "reload")) {
 					Config.reloadConfig();
-					ConfigUtils.load();
 					
 					if(sender instanceof Player)
 						Bukkit.getLogger().info("[EasySetSpawn] Config reloaded.");
@@ -146,15 +138,15 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Config.getConfig().getString("messages.config-reloaded")));
 				}
 				else {
-					sender.sendMessage(ConfigUtils.no_permission);
+					sender.sendMessage(ConfigUtil.getNoPermission());
 				}
 			}
 			else {
 				if(Utils.hasPermission(sender, "help")) {
-					sender.sendMessage("§cArgument not found. For help use: /ess help");
+					sender.sendMessage("§cArgument not found. For help use: /" + cmd.getName() + " help");
 				}
 				else {
-					sender.sendMessage(ConfigUtils.no_permission);
+					sender.sendMessage(ConfigUtil.getNoPermission());
 				}
 			}
 		}

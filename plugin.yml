@@ -1,0 +1,12 @@
+name: EasySetSpawn
+main: me.clickpt.easysetspawn.Main
+version: 2.1
+author: ClickPT
+
+commands:
+    setspawn:
+     description: Set spawn.
+    spawn:
+     description: Teleport to spawn.
+    easyss:
+     description: General command.
