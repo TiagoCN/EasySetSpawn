@@ -123,16 +123,8 @@ public class Events implements Listener {
 	
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent e) {
-		final PlayerRespawnEvent e1 = e;
-		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
-			
-			public void run() {
-				if(Config.getConfig().getBoolean("teleport-to-spawn-on.respawn"))
-					Utils.teleportToSpawn(e1.getPlayer());
-			}
-			
-		}, 5);
+		if(Config.getConfig().getBoolean("teleport-to-spawn-on.respawn"))
+			e.setRespawnLocation(Utils.getSpawnLocation());
 	}
 	
 	@EventHandler

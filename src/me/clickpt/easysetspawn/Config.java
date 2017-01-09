@@ -26,7 +26,7 @@ public class Config {
 		create();
 		
 		if(!config.getString("config-version").equalsIgnoreCase(Main.getConfigVersion())) {
-			pl.getLogger().warning("ITS CONFIG.YML IS OUT OF DATE!");
+			pl.getLogger().warning("CONFIG.YML IS OUT OF DATE!");
 			pl.getLogger().warning("USE AN OLD CONFIGURATION CAN GENERATE SEVERAL BUGS.");
 			pl.getLogger().warning("PLEASE BACKUP CONFIG AND REMOVE IT TO GENERATE NEW.");
 		}
@@ -79,20 +79,22 @@ public class Config {
 			config.set("teleport-delay-in-seconds", 0);
 			config.set("check-version.enabled", true);
 			config.set("check-version.warning-message", "&6[EasySetSpawn] &7New version available on the official page.");
+			config.set("metrics", true);
 			config.set("disable-spawn-command-in-pvp.enabled", false);
 			config.set("disable-spawn-command-in-pvp.warning-message", "&cYou can not go to spawn when you are in PvP.");
-			config.set("options.spawn-command-need-permission", false);
 			config.set("options.set-gamemode-on-join.enabled", false);
 			config.set("options.set-gamemode-on-join.gamemode", 0);
 			config.set("options.set-fly-on-join.enabled", false);
 			config.set("options.set-fly-on-join.fly", false);
 			config.set("options.set-max-health-on-join", false);
 			config.set("options.set-max-food-level-on-join", false);
+			config.set("spawn-command.message-enabled", true);
+			config.set("spawn-command.message", "&6[EasySetSpawn] &7Teleported to spawn.");
+			config.set("spawn-command.need-permission", false);
 			config.set("messages.no-permission", "&cYou do not have permission to use this command.");
-			config.set("messages.command-teleport", "&6[EasySetSpawn] &7Teleported to spawn.");
 			config.set("messages.teleported-other-player", "&6[EasySetSpawn] &7%target% teleported to spawn.");
 			config.set("messages.spawn-not-set", "&6[EasySetSpawn] &cSpawn has not yet been set.");
-			config.set("messages.player-not-found", "&cPlayer not found.");
+			config.set("messages.player-not-found", "&6[EasySetSpawn] &cPlayer not found.");
 			config.set("messages.spawn-successfully-set", "&6[EasySetSpawn] &7Spawn successfully set.");
 			config.set("messages.config-reloaded", "&6[EasySetSpawn] &7Config reloaded.");
 			config.set("messages.console-use-command", "&cOnly players can run this command.");
