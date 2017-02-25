@@ -17,7 +17,6 @@ public class Main extends JavaPlugin {
 
 	private static Main instance;
 	
-	private final static int config_version = 1;
 	private static boolean new_version = false;
 	
 	public void onEnable() {
@@ -110,10 +109,6 @@ public class Main extends JavaPlugin {
 
 	public static String getPluginVersion() {
 		return instance.getDescription().getVersion();
-	}
-
-	public static int getConfigVersion() {
-		return config_version;
 	}
 
 	public static boolean hasNewVersion() {

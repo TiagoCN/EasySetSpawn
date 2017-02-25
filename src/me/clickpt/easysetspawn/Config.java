@@ -24,7 +24,7 @@ public class Config {
 		YamlConfiguration config1 = YamlConfiguration.loadConfiguration(file1);
 		
 		if(pl.getDataFolder().exists() && file1.exists()) {
-			if(config1.getInt("config-version") < Main.getConfigVersion()) {
+			if(!config1.getString("config-version").equalsIgnoreCase(Main.getPluginVersion())) {
 				File file2 = new File(pl.getDataFolder(), "oldconfig.yml");
 				
 				file1.renameTo(file2);
@@ -36,7 +36,8 @@ public class Config {
 				file1.delete();
 				
 				pl.getLogger().warning("OLD CONFIG REMOVED!");
-				pl.getLogger().warning("NEW CONFIG GENERATED! PLEASE CONSIDER MODIFYING THE CONFIG.");
+				pl.getLogger().warning("NEW CONFIG GENERATED!");
+				pl.getLogger().warning("PLEASE CONSIDER MODIFYING THE CONFIG.");
 			}
 		}
 	}
