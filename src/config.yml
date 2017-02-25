@@ -54,4 +54,4 @@ first-join-message:
   enabled: false
   text:
   - '&6Welcome %player%!'
-config-version: 1
+config-version: '3.0'
