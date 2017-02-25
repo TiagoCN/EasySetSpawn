@@ -1,0 +1,57 @@
+teleport-to-spawn-on:
+  first-join: true
+  join: true
+  respawn: true
+  void-fall: false
+teleport-delay-in-seconds: 0
+check-version:
+  enabled: true
+  warning-message: '&6[EasySetSpawn] &7New version available on the official page.'
+metrics: true
+disable-spawn-command-in-pvp:
+  enabled: false
+  warning-message: '&cYou can not go to spawn when you are in PvP.'
+options:
+  set-gamemode-on-join:
+    enabled: false
+    gamemode: 0
+  set-fly-on-join:
+    enabled: false
+    fly: false
+  set-max-health-on-join: false
+  set-max-food-level-on-join: false
+spawn-command:
+  message-enabled: true
+  message: '&6[EasySetSpawn] &7Teleported to spawn.'
+  need-permission: false
+messages:
+  no-permission: '&cYou do not have permission to use this command.'
+  teleported-other-player: '&6[EasySetSpawn] &7%target% teleported to spawn.'
+  spawn-not-set: '&6[EasySetSpawn] &cSpawn has not yet been set.'
+  player-not-found: '&6[EasySetSpawn] &cPlayer not found.'
+  spawn-successfully-set: '&6[EasySetSpawn] &7Spawn successfully set.'
+  config-reloaded: '&6[EasySetSpawn] &7Config reloaded.'
+  console-use-command: '&cOnly players can run this command.'
+  teleport-delay: '&6Teleportation will commence in %seconds% seconds. Do not move.'
+  player-move: '&cTeleportation canceled due to movement.'
+broadcast:
+  player-join:
+    enabled: false
+    message: '&6%player% joined the server!'
+    hide: false
+  player-quit:
+    enabled: false
+    message: '&6%player% left the server!'
+    hide: false
+  first-join:
+    enabled: false
+    message: '&6Welcome, %player%!'
+join-message:
+  enabled: false
+  text:
+  - '&6Welcome %player%!'
+first-join-message:
+  enabled: false
+  text:
+  - '&6Welcome %player%!'
+config-version: 1

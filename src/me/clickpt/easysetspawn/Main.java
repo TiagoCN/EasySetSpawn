@@ -5,40 +5,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
+
+import me.clickpt.easysetspawn.commands.*;
+import me.clickpt.easysetspawn.listeners.*;
 
 public class Main extends JavaPlugin {
 
 	private static Main instance;
-
-	private final static String config_version = "2.1";
+	
+	private final static int config_version = 1;
 	private static boolean new_version = false;
-
+	
 	public void onEnable() {
 		instance = this;
-
-		Config.loadConfig(this);
+		
+		Config c = new Config(this);
+		c.checkForUpdate();
+		c.createConfig();
+		c.convertOldConfig();
+		Config.testConfig();
+		
 		try {
 			checkVersion();
 		} catch (IOException e1) {
-			getLogger().warning("Error checking for updates!");
+			getLogger().warning("Error checking updates!");
 		}
+		
+		registerCommands();
+		registerListeners();
 
-		getCommand("setspawn").setExecutor(new Commands());
-		getCommand("spawn").setExecutor(new Commands());
-		getCommand("easyss").setExecutor(new Commands());
-
-		getServer().getPluginManager().registerEvents(new Events(), this);
-
-		if (Config.getConfig().getBoolean("metrics")) {
+		if(getConfig().getBoolean("metrics")) {
 			try {
 				MetricsLite metrics = new MetricsLite(this);
 				metrics.start();
 			} catch (IOException e) {
-				getLogger().warning("Error loading MetricsLite!");
-			} finally {
-				getLogger().info("MetricsLite enabled!");
 			}
 		}
 
@@ -58,9 +62,26 @@ public class Main extends JavaPlugin {
 	}
 
 	// -------------------------------------
+	
+	private void registerCommands() {
+		getCommand("setspawn").setExecutor(new SetSpawnCMD());
+		getCommand("spawn").setExecutor(new SpawnCMD());
+		getCommand("easyss").setExecutor(new EasySSCMD());
+	}
+	
+	private void registerListeners() {
+		PluginManager pm = getServer().getPluginManager();
+		
+		pm.registerEvents(new PlayerJoin(), this);
+		pm.registerEvents(new PlayerQuit(), this);
+		pm.registerEvents(new BlockCombat(), this);
+		pm.registerEvents(new MoreEvents(), this);
+	}
+	
+	// -------------------------------------
 
-	protected void checkVersion() throws IOException {
-		if (Config.getConfig().getBoolean("check-version.enabled")) {
+	public void checkVersion() throws IOException {
+		if(getConfig().getBoolean("check-version.enabled")) {
 			URL url = new URL("https://raw.githubusercontent.com/ClickPT/EasySetSpawn/master/version.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			String str;
@@ -72,10 +93,16 @@ public class Main extends JavaPlugin {
 			br.close();
 		}
 	}
+	
+	// -------------------------------------
+	
+	public static FileConfiguration getConfiguration() {
+		return getInstance().getConfig();
+	}
 
 	// -------------------------------------
 
-	protected static Main getInstance() {
+	public static Main getInstance() {
 		return instance;
 	}
 
@@ -85,7 +112,7 @@ public class Main extends JavaPlugin {
 		return instance.getDescription().getVersion();
 	}
 
-	public static String getConfigVersion() {
+	public static int getConfigVersion() {
 		return config_version;
 	}
 
