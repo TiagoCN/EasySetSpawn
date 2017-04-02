@@ -19,11 +19,11 @@ public class MoreEvents implements Listener {
 	}
 	
 	@EventHandler
-    public void onEntityDamage(EntityDamageEvent e) {
+	public void onEntityDamage(EntityDamageEvent e) {
 		if(e.getEntity() instanceof Player && e.getCause().equals(DamageCause.VOID) && Main.getConfiguration().getBoolean("teleport-to-spawn-on.void-fall")) {
 			Spawn.teleport((Player) e.getEntity());
 			e.setCancelled(true);
 		}
-    }
+	}
 	
 }

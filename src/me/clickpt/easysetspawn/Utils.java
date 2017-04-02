@@ -10,7 +10,7 @@ public class Utils {
 		return ChatColor.translateAlternateColorCodes('&', arg0);
 	}
 	
-    public static boolean verifyIfIsAPlayer(CommandSender sender) {
+	public static boolean verifyIfIsAPlayer(CommandSender sender) {
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ConfigUtil.getConsoleUseCommand());
 			return true;
@@ -18,7 +18,7 @@ public class Utils {
 		else {
 			return false;
 		}
-    }
+	}
 	
 	public static boolean hasPermission(Player player, String permission) {
 		return player.hasPermission("easysetspawn." + permission) || player.hasPermission("easysetspawn.*");

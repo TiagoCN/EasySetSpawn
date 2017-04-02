@@ -1,7 +1,7 @@
 teleport-to-spawn-on:
   first-join: true
-  join: true
-  respawn: true
+  join: false
+  respawn: false
   void-fall: false
 teleport-delay-in-seconds: 0
 check-version:
@@ -54,4 +54,4 @@ first-join-message:
   enabled: false
   text:
   - '&6Welcome %player%!'
-config-version: '3.0'
+config-version: '3.1'

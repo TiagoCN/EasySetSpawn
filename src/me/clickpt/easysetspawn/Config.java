@@ -15,8 +15,8 @@ public class Config {
 	}
 	
 	public void createConfig() {
-    	pl.getConfig().options().copyDefaults(true);
-    	pl.saveDefaultConfig();
+		pl.getConfig().options().copyDefaults(true);
+		pl.saveDefaultConfig();
 	}
 	
 	public void checkForUpdate() {

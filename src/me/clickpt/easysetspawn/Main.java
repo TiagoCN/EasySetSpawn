@@ -8,7 +8,6 @@ import java.net.URL;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.MetricsLite;
 
 import me.clickpt.easysetspawn.commands.*;
 import me.clickpt.easysetspawn.listeners.*;
@@ -38,11 +37,7 @@ public class Main extends JavaPlugin {
 		registerListeners();
 
 		if(getConfig().getBoolean("metrics")) {
-			try {
-				MetricsLite metrics = new MetricsLite(this);
-				metrics.start();
-			} catch (IOException e) {
-			}
+			new MetricsLite(this);
 		}
 
 		getLogger().info("--------------------------");
