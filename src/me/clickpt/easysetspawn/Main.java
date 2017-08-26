@@ -19,6 +19,8 @@ public class Main extends JavaPlugin {
 	
 	private static boolean new_version = false;
 	
+	private static String config_version = "3.1";
+	
 	public void onEnable() {
 		instance = this;
 		
@@ -41,19 +43,11 @@ public class Main extends JavaPlugin {
 			new MetricsLite(this);
 		}
 
-		getLogger().info("--------------------------");
-		getLogger().info("");
 		getLogger().info(getDescription().getName() + " enabled!");
-		getLogger().info("");
-		getLogger().info("--------------------------");
 	}
 
 	public void onDisable() {
-		getLogger().info("--------------------------");
-		getLogger().info("");
 		getLogger().info(getDescription().getName() + " disabled!");
-		getLogger().info("");
-		getLogger().info("--------------------------");
 	}
 
 	// -------------------------------------
@@ -109,6 +103,10 @@ public class Main extends JavaPlugin {
 
 	public static boolean hasNewVersion() {
 		return new_version;
+	}
+	
+	public static String getConfigVersion() {
+		return config_version;
 	}
 
 }

@@ -26,7 +26,7 @@ public class Config {
 		YamlConfiguration config1 = YamlConfiguration.loadConfiguration(file1);
 		
 		if(pl.getDataFolder().exists() && file1.exists()) {
-			if(!config1.getString("config-version").equalsIgnoreCase(Main.getPluginVersion())) {
+			if(!config1.getString("config-version").equalsIgnoreCase(Main.getConfigVersion())) {
 				File file2 = new File(pl.getDataFolder(), "oldconfig.yml");
 				
 				file1.renameTo(file2);
