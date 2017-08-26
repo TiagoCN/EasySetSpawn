@@ -59,8 +59,9 @@ public class Spawn {
 			if((sender != null) || (message && Main.getConfiguration().getBoolean("spawn-command.message-enabled"))) {
 				p.sendMessage(Utils.color(Main.getConfiguration().getString("spawn-command.message")));
 				
-				if(p.getName() != sender.getName())
-					sender.sendMessage(Utils.color(Main.getConfiguration().getString("messages.teleported-other-player")).replaceAll("%target%", p.getName()));
+				if(sender != null)
+					if(p.getName() != sender.getName())
+						sender.sendMessage(Utils.color(Main.getConfiguration().getString("messages.teleported-other-player")).replaceAll("%target%", p.getName()));
 			}
 		}
 	}
