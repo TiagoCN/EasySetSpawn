@@ -24,41 +24,13 @@ public class BlockCombat implements Listener {
 		final Player p = (Player) e.getEntity();
 		
 		if(e.getDamager() instanceof Player) {
-			pvp(p, (Player) e.getDamager());
+			pvp(p);
+			pvp((Player) e.getDamager());
 		}
 		else if((e.getDamager() instanceof Arrow) && (((Arrow) e.getDamager()).getShooter() instanceof Player)) {
-			pvp(p, (Player) ((Arrow) e.getDamager()).getShooter());
+			pvp(p);
+			pvp((Player) ((Arrow) e.getDamager()).getShooter());
 		}
-	}
-	
-	private void pvp(final Player p, final Player d) {
-		if(pvp.containsKey(p))
-			if(pvp.get(p).isSync())
-				pvp.get(p).cancel();
-		
-		pvp.put(p, new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				if(pvp.containsKey(p))
-					pvp.remove(p);
-			}
-			
-		}.runTaskLater(Main.getInstance(), 8*20L));
-		
-		if(pvp.containsKey(d))
-			if(pvp.get(d).isSync())
-				pvp.get(d).cancel();
-		
-		pvp.put(d, new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				if(pvp.containsKey(d))
-					pvp.remove(d);
-			}
-			
-		}.runTaskLater(Main.getInstance(), 8*20L));
 	}
 	
 	public static boolean containsKey(Player p) {
@@ -72,6 +44,22 @@ public class BlockCombat implements Listener {
 		
 			pvp.remove(p);
 		}
+	}
+	
+	private void pvp(final Player p) {
+		if(pvp.containsKey(p))
+			if(pvp.get(p).isSync())
+				pvp.get(p).cancel();
+		
+		pvp.put(p, new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				if(pvp.containsKey(p))
+					pvp.remove(p);
+			}
+			
+		}.runTaskLater(Main.getInstance(), 8*20L));
 	}
 	
 }

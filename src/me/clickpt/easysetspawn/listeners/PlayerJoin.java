@@ -17,41 +17,48 @@ public class PlayerJoin implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		
-		if(Main.hasNewVersion() && p.isOp())
+		String playerjoin = null;
+		String joinmessage = null;
+		
+		if(Main.hasNewVersion() && (p.isOp() || Utils.hasPermission(p, "update-message")))
 			p.sendMessage(Utils.color(Main.getConfiguration().getString("check-version.warning-message")));
 		
 		if(Main.getConfiguration().getBoolean("broadcast.player-join.enabled")) {
 			e.setJoinMessage(null);
 			
 			if(!Main.getConfiguration().getBoolean("broadcast.player-join.hide")) {
-				Bukkit.broadcastMessage(Utils.color(Main.getConfiguration().getString("broadcast.player-join.message").replaceAll("%player%", p.getDisplayName())));
+				playerjoin = "broadcast.player-join.message";
 			}
 		}
 		
 		if(Main.getConfiguration().getBoolean("join-message.enabled")) {
-			for(String message : Main.getConfiguration().getStringList("join-message.text")) {
-				p.sendMessage(Utils.color(message.replaceAll("%player%", p.getName())));
-			}
+			joinmessage = "join-message.text";
 		}
 		
 		if(p.hasPlayedBefore()) {
 			if(Main.getConfiguration().getBoolean("teleport-to-spawn-on.join")) {
-				Spawn.teleport(p);
+				Spawn.teleport(p, false, null);
 			}
 		}
 		else {
 			if(Main.getConfiguration().getBoolean("teleport-to-spawn-on.first-join"))
-				Spawn.teleport(p);
+				Spawn.teleport(p, false, null);
 			
 			if(Main.getConfiguration().getBoolean("broadcast.first-join.enabled"))
-				Bukkit.broadcastMessage(Utils.color(Main.getConfiguration().getString("broadcast.first-join.message").replaceAll("%player%", p.getDisplayName())));
+				playerjoin = "broadcast.first-join.message";
 			
 			if(Main.getConfiguration().getBoolean("first-join-message.enabled")) {
-				for(String message : Main.getConfiguration().getStringList("first-join-message.text")) {
-					p.sendMessage(Utils.color(message.replaceAll("%player%", p.getName())));
-				}
+				joinmessage = "first-join-message.text";
 			}
 		}
+		
+		if(playerjoin != null)
+			Bukkit.broadcastMessage(Utils.color(Main.getConfiguration().getString(playerjoin).replaceAll("%player%", p.getDisplayName())));
+		
+		if(joinmessage != null)
+			for(String message : Main.getConfiguration().getStringList(joinmessage)) {
+				p.sendMessage(Utils.color(message.replaceAll("%player%", p.getName())));
+			}
 		
 		int gm = Main.getConfiguration().getInt("options.set-gamemode-on-join.gamemode");
 		

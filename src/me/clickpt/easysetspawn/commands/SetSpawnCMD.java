@@ -6,10 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.clickpt.easysetspawn.ConfigUtil;
 import me.clickpt.easysetspawn.Main;
 import me.clickpt.easysetspawn.Spawn;
 import me.clickpt.easysetspawn.Utils;
+import me.clickpt.easysetspawn.config.ConfigUtil;
 
 public class SetSpawnCMD implements CommandExecutor {
 

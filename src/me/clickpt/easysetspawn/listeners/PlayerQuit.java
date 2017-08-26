@@ -7,9 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.clickpt.easysetspawn.Main;
+import me.clickpt.easysetspawn.Spawn;
 import me.clickpt.easysetspawn.Utils;
-
-import me.clickpt.easysetspawn.delay.SpawnDelay;
 
 public class PlayerQuit implements Listener {
 	
@@ -29,7 +28,7 @@ public class PlayerQuit implements Listener {
 		}
 		
 		BlockCombat.remove(p);
-		SpawnDelay.remove(p);
+		Spawn.removeDelay(p);
 	}
 	
 }
