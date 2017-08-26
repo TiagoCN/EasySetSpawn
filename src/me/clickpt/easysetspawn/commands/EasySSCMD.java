@@ -5,10 +5,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.clickpt.easysetspawn.Config;
-import me.clickpt.easysetspawn.ConfigUtil;
 import me.clickpt.easysetspawn.Main;
 import me.clickpt.easysetspawn.Utils;
+import me.clickpt.easysetspawn.config.Config;
+import me.clickpt.easysetspawn.config.ConfigUtil;
 
 public class EasySSCMD implements CommandExecutor {
 
@@ -19,9 +19,9 @@ public class EasySSCMD implements CommandExecutor {
 				sender.sendMessage("§7===== §bEasySetSpawn §7=====");
 				sender.sendMessage("§b/spawn §7- Teleport to spawn.");
 				sender.sendMessage("§b/setspawn §7- Set spawn.");
-				sender.sendMessage("§b/" + cmd.getName() + " or /" + cmd.getName() + " help §7- Command list.");
+				sender.sendMessage("§b/" + cmd.getName() + " or /" + cmd.getName() + " help §7- Commands list.");
 				sender.sendMessage("§b/" + cmd.getName() + " info §7- Plugin info.");
-				sender.sendMessage("§b/" + cmd.getName() + " setdelay §7- Set spawn delay. 0 = no delay");
+				sender.sendMessage("§b/" + cmd.getName() + " setdelay [seconds] §7- Set spawn delay. 0 = no delay");
 				sender.sendMessage("§b/" + cmd.getName() + " reload §7- Reload config.");
 			}
 			else {
@@ -31,6 +31,8 @@ public class EasySSCMD implements CommandExecutor {
 		else if(args[0].equalsIgnoreCase("info")) {
 			if(Utils.hasPermission(sender, "info")) {
 				sender.sendMessage("§bEasySetSpawn§7 version §b" + Main.getPluginVersion() + " §7created by §bClickPT§7.");
+				sender.sendMessage("§8Bukkit Page: §7https://dev.bukkit.org/projects/easysetspawn");
+				sender.sendMessage("§8Spigot Page: §7https://www.spigotmc.org/resources/easysetspawn.9961/");
 			}
 			else {
 				sender.sendMessage(ConfigUtil.getNoPermission());

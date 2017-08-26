@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.clickpt.easysetspawn.config.ConfigUtil;
+
 public class Utils {
 	
 	public static String color(String arg0) {

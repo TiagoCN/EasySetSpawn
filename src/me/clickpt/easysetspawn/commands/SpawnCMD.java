@@ -6,12 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.clickpt.easysetspawn.ConfigUtil;
 import me.clickpt.easysetspawn.Main;
 import me.clickpt.easysetspawn.Spawn;
 import me.clickpt.easysetspawn.Utils;
-
-import me.clickpt.easysetspawn.delay.SpawnDelay;
+import me.clickpt.easysetspawn.config.ConfigUtil;
 
 public class SpawnCMD implements CommandExecutor {
 	
@@ -24,14 +22,14 @@ public class SpawnCMD implements CommandExecutor {
 			
 			if(Main.getConfiguration().getBoolean("spawn-command.need-permission")) {
 				if(Utils.hasPermission(p, "spawn")) {
-					SpawnDelay.spawn(p);
+					Spawn.spawn(p);
 				}
 				else {
 					sender.sendMessage(ConfigUtil.getNoPermission());
 				}
 			}
 			else {
-				SpawnDelay.spawn(p);
+				Spawn.spawn(p);
 			}
 			
 			return true;
@@ -45,7 +43,7 @@ public class SpawnCMD implements CommandExecutor {
 				return true;
 			}
 			
-			Spawn.teleport(target, sender);
+			Spawn.teleport(target, true, sender);
 		}
 		else {
 			sender.sendMessage(ConfigUtil.getNoPermission());

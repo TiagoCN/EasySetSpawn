@@ -1,4 +1,4 @@
-package me.clickpt.easysetspawn.delay;
+package me.clickpt.easysetspawn;
 
 import org.bukkit.scheduler.BukkitTask;
 

@@ -10,6 +10,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.clickpt.easysetspawn.commands.*;
+import me.clickpt.easysetspawn.config.Config;
 import me.clickpt.easysetspawn.listeners.*;
 
 public class Main extends JavaPlugin {
@@ -22,7 +23,7 @@ public class Main extends JavaPlugin {
 		instance = this;
 		
 		Config c = new Config(this);
-		c.checkForUpdate();
+		c.checkVersion();
 		c.createConfig();
 		c.convertOldConfig();
 		Config.testConfig();
@@ -76,7 +77,7 @@ public class Main extends JavaPlugin {
 
 	public void checkVersion() throws IOException {
 		if(getConfig().getBoolean("check-version.enabled")) {
-			URL url = new URL("https://raw.githubusercontent.com/ClickPT/EasySetSpawn/master/version.txt");
+			URL url = new URL("https://raw.githubusercontent.com/TiagoCN/EasySetSpawn/master/version.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			String str;
 

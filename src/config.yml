@@ -45,13 +45,13 @@ broadcast:
     hide: false
   first-join:
     enabled: false
-    message: '&6Welcome, %player%!'
+    message: '&6%player% joined the server for the first time!'
 join-message:
   enabled: false
   text:
-  - '&6Welcome %player%!'
+  - '&6Welcome, %player%!'
 first-join-message:
   enabled: false
   text:
-  - '&6Welcome %player%!'
+  - '&6Welcome, %player%!'
 config-version: '3.1'
