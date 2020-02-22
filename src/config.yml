@@ -6,7 +6,7 @@ teleport-to-spawn-on:
 teleport-delay-in-seconds: 0
 check-version:
   enabled: false
-  warning-message: '&6[EasySetSpawn] &7New version available on the official page.'
+  warning-message: '&6[EasySetSpawn] &7New update available on the official page.'
 metrics: true
 disable-spawn-command-in-pvp:
   enabled: false
