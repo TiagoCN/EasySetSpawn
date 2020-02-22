@@ -49,7 +49,7 @@ public class SpawnCMD implements CommandExecutor {
 			sender.sendMessage(ConfigUtil.getNoPermission());
 		}
 		
-		return false;
+		return true;
 	}
 
 }
