@@ -1,7 +1,7 @@
 name: EasySetSpawn
 main: me.clickpt.easysetspawn.Main
 description: Simple bukkit plugin for set global spawn with very useful options in config.
-version: 3.2
+version: 3.3
 author: ClickPT
 website: https://dev.bukkit.org/projects/easysetspawn
 
