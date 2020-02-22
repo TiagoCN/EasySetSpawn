@@ -5,7 +5,7 @@ teleport-to-spawn-on:
   void-fall: false
 teleport-delay-in-seconds: 0
 check-version:
-  enabled: true
+  enabled: false
   warning-message: '&6[EasySetSpawn] &7New version available on the official page.'
 metrics: true
 disable-spawn-command-in-pvp:
