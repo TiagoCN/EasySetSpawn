@@ -1,13 +1,61 @@
 name: EasySetSpawn
 main: me.clickpt.easysetspawn.Main
+description: Simple bukkit plugin for set global spawn with very useful options in config.
 version: 3.2
 author: ClickPT
 website: https://dev.bukkit.org/projects/easysetspawn
 
 commands:
     setspawn:
-     description: Set spawn.
+     description: Set spawn for all players.
+     permission: easysetspawn.setspawn
+     usage: "Usage: /<command>"
     spawn:
      description: Teleport to spawn.
+     permission: easysetspawn.spawn
+     usage: "Usage: /<command> [player]"
     easyss:
      description: General command.
+     usage: "Usage: /<command> | /<command> help/info/reload | /<command> setdelay [seconds]"
+     permission: easysetspawn.help
+
+permissions:
+  easysetspawn.setspawn:
+    description: Allows you to use the command /setspawn
+    default: op
+  easysetspawn.spawn:
+    description: Allows you to use the command /spawn
+    default: true
+  easysetspawn.teleportothers:
+    description: Allows you to teleport other players to spawn
+    default: false
+  easysetspawn.help:
+    description: Allows you to get help with the command /easyss
+    default: op
+    children:
+      easysetspawn.info: true
+      easysetspawn.reload: true
+      easysetspawn.setdelay: true
+  easysetspawn.info:
+    description: Allows you to use the command /easyss info
+    default: op
+  easysetspawn.reload:
+    description: Allows you to use the command /easyss reload
+    default: op
+  easysetspawn.setdelay:
+    description: Allows you to use the command /easyss setdelay
+    default: op
+  easysetspawn.bypassdelay:
+    description: Allows you to bypass the teleportation delay
+    default: false
+  easysetspawn.bypasscmdblock:
+    description: Allows you to bypass block of /spawn command
+    default: false
+  easysetspawn.*:
+    description: Global permission
+    default: false
+    children:
+      easysetspawn.setspawn: true
+      easysetspawn.spawn: true
+      easysetspawn.teleportothers: true
+      easysetspawn.help: true
