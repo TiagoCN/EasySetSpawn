@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,12 +30,20 @@ public class Main extends JavaPlugin {
 		c.createConfig();
 		c.convertOldConfig();
 		Config.testConfig();
-		
-		try {
-			checkVersion();
-		} catch (IOException e1) {
-			getLogger().warning("Error checking updates!");
-		}
+				
+		Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					getLogger().info("Checking for updates...");
+					checkVersion();
+				} catch (IOException e1) {
+					getLogger().warning("Error checking updates!");
+				}
+			}
+			
+		}, 1);
 		
 		registerCommands();
 		registerListeners();
@@ -43,11 +52,11 @@ public class Main extends JavaPlugin {
 			new MetricsLite(this);
 		}
 
-		getLogger().info(getDescription().getName() + " enabled!");
+		getLogger().info("Enabled!");
 	}
 
 	public void onDisable() {
-		getLogger().info(getDescription().getName() + " disabled!");
+		getLogger().info("Disabled!");
 	}
 
 	// -------------------------------------
@@ -82,10 +91,15 @@ public class Main extends JavaPlugin {
 			String str;
 
 			if((str = br.readLine()) != null)
-				if(!str.equalsIgnoreCase(getPluginVersion()) && !str.contains("<") && str.contains("."))
-					new_version = true;
+				if(str != null && str.matches(".*[123456789.-].*") && str.length() <= 16)
+					if(!str.equalsIgnoreCase(getPluginVersion()))
+							new_version = true;
 
 			br.close();
+			
+			if(new_version) {
+				getLogger().info("New version available!");
+			}
 		}
 	}
 	
