@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,7 +31,15 @@ public class Main extends JavaPlugin {
 		c.createConfig();
 		c.convertOldConfig();
 		Config.testConfig();
-				
+		
+		registerCommands();
+		registerListeners();
+		
+		Location lspawn = Spawn.getLocation();
+		if(lspawn != null) {
+			lspawn.getWorld().setSpawnLocation((int) lspawn.getX(), (int) lspawn.getY(), (int) lspawn.getZ());
+		}
+		
 		Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable() {
 			
 			@Override
@@ -45,9 +54,6 @@ public class Main extends JavaPlugin {
 			
 		}, 1);
 		
-		registerCommands();
-		registerListeners();
-
 		if(getConfig().getBoolean("metrics")) {
 			new MetricsLite(this);
 		}
@@ -98,7 +104,7 @@ public class Main extends JavaPlugin {
 			br.close();
 			
 			if(new_version) {
-				getLogger().info("New version available!");
+				getLogger().info("Update available!");
 			}
 		}
 	}
