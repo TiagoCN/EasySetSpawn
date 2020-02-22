@@ -53,9 +53,15 @@ public class Main extends JavaPlugin {
 	// -------------------------------------
 	
 	private void registerCommands() {
-		getCommand("setspawn").setExecutor(new SetSpawnCMD());
-		getCommand("spawn").setExecutor(new SpawnCMD());
-		getCommand("easyss").setExecutor(new EasySSCMD());
+		SetSpawnCMD setSpawnCmd = new SetSpawnCMD();
+		SpawnCMD spawnCmd = new SpawnCMD();
+		EasySSCMD easyssCmd = new EasySSCMD();
+		getCommand("setspawn").setExecutor(setSpawnCmd);
+		getCommand("spawn").setExecutor(spawnCmd);
+		getCommand("easyss").setExecutor(easyssCmd);
+		getCommand("setspawn").setTabCompleter(setSpawnCmd);
+		getCommand("spawn").setTabCompleter(spawnCmd);
+		getCommand("easyss").setTabCompleter(easyssCmd);
 	}
 	
 	private void registerListeners() {
