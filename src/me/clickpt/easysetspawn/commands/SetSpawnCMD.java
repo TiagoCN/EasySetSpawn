@@ -32,7 +32,7 @@ public class SetSpawnCMD implements CommandExecutor {
 			p.sendMessage(ConfigUtil.getNoPermission());
 		}
 		
-		return false;
+		return true;
 	}
 
 }
