@@ -21,13 +21,13 @@ public class EasySSCMD implements CommandExecutor, TabCompleter {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length == 0 || args[0].equalsIgnoreCase("help")) {
 			if(Utils.hasPermission(sender, "help")) {
-				sender.sendMessage("§7===== §bEasySetSpawn §7=====");
-				sender.sendMessage("§b/spawn §7- Teleport to spawn.");
-				sender.sendMessage("§b/setspawn §7- Set spawn.");
-				sender.sendMessage("§b/" + cmd.getName() + " or /" + cmd.getName() + " help §7- Commands list.");
-				sender.sendMessage("§b/" + cmd.getName() + " info §7- Plugin info.");
-				sender.sendMessage("§b/" + cmd.getName() + " setdelay [seconds] §7- Set spawn delay. 0 = no delay");
-				sender.sendMessage("§b/" + cmd.getName() + " reload §7- Reload config.");
+				sender.sendMessage("Â§7===== Â§bEasySetSpawn Â§7=====");
+				sender.sendMessage("Â§b/spawn Â§7- Teleport to spawn.");
+				sender.sendMessage("Â§b/setspawn Â§7- Set spawn.");
+				sender.sendMessage("Â§b/" + cmd.getName() + " or /" + cmd.getName() + " help Â§7- Commands list.");
+				sender.sendMessage("Â§b/" + cmd.getName() + " info Â§7- Plugin info.");
+				sender.sendMessage("Â§b/" + cmd.getName() + " setdelay [seconds] Â§7- Set spawn delay. 0 = no delay");
+				sender.sendMessage("Â§b/" + cmd.getName() + " reload Â§7- Reload config.");
 			}
 			else {
 				sender.sendMessage(ConfigUtil.getNoPermission());
@@ -35,9 +35,9 @@ public class EasySSCMD implements CommandExecutor, TabCompleter {
 		}
 		else if(args[0].equalsIgnoreCase("info")) {
 			if(Utils.hasPermission(sender, "info")) {
-				sender.sendMessage("§bEasySetSpawn§7 version §b" + Main.getPluginVersion() + " §7created by §bClickPT§7.");
-				sender.sendMessage("§8Bukkit Page: §7https://dev.bukkit.org/projects/easysetspawn");
-				sender.sendMessage("§8Spigot Page: §7https://www.spigotmc.org/resources/easysetspawn.9961/");
+				sender.sendMessage("Â§bEasySetSpawnÂ§7 version Â§b" + Main.getPluginVersion());
+				sender.sendMessage("Â§8Bukkit Page: Â§7https://dev.bukkit.org/projects/easysetspawn");
+				sender.sendMessage("Â§8Spigot Page: Â§7https://www.spigotmc.org/resources/easysetspawn.9961/");
 			}
 			else {
 				sender.sendMessage(ConfigUtil.getNoPermission());
@@ -46,16 +46,16 @@ public class EasySSCMD implements CommandExecutor, TabCompleter {
 		else if(args[0].equalsIgnoreCase("setdelay")) {
 			if(Utils.hasPermission(sender, "setdelay")) {
 				if(args.length == 1) {
-					sender.sendMessage("§7Currently teleport delay: §b" + Main.getConfiguration().getInt("teleport-delay-in-seconds") + " seconds§7.");
+					sender.sendMessage("Â§7Currently teleport delay: Â§b" + Main.getConfiguration().getInt("teleport-delay-in-seconds") + " secondsÂ§7.");
 				}
 				else {
 					try {
 						Main.getConfiguration().set("teleport-delay-in-seconds", Integer.parseInt(args[1]));
 						Main.getInstance().saveConfig();
 						
-						sender.sendMessage("§7Teleport delay changed to: §b" + Integer.parseInt(args[1]) + " seconds§7.");
+						sender.sendMessage("Â§7Teleport delay changed to: Â§b" + Integer.parseInt(args[1]) + " secondsÂ§7.");
 					} catch(Exception e) {
-						sender.sendMessage("§cYou can only use numbers.");
+						sender.sendMessage("Â§cYou can only use numbers.");
 					}
 				}
 			}
@@ -79,7 +79,7 @@ public class EasySSCMD implements CommandExecutor, TabCompleter {
 		}
 		else {
 			if(Utils.hasPermission(sender, "help")) {
-				sender.sendMessage("§cArgument not found. For help use: /" + cmd.getName() + " help");
+				sender.sendMessage("Â§cArgument not found. For help use: /" + cmd.getName() + " help");
 			}
 			else {
 				sender.sendMessage(ConfigUtil.getNoPermission());
