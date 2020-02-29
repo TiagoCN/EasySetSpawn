@@ -45,7 +45,6 @@ public class Main extends JavaPlugin {
 			@Override
 			public void run() {
 				try {
-					getLogger().info("Checking for updates...");
 					checkVersion();
 				} catch (IOException e1) {
 					getLogger().warning("Error checking updates!");
@@ -92,6 +91,8 @@ public class Main extends JavaPlugin {
 
 	public void checkVersion() throws IOException {
 		if(getConfig().getBoolean("check-version.enabled")) {
+			getLogger().info("Checking for updates...");
+			
 			URL url = new URL("https://raw.githubusercontent.com/TiagoCN/EasySetSpawn/master/version.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 			String str;
