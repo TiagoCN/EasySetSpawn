@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,7 +96,7 @@ public class Main extends JavaPlugin {
 
 	public void checkVersion() throws IOException {
 		if(getConfig().getBoolean("check-version.enabled")) {
-			getLogger().info("Checking for updates...");
+			getLogger().info("Update check enabled!");
 			
 			URL url = new URL("https://raw.githubusercontent.com/TiagoCN/EasySetSpawn/master/version.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
