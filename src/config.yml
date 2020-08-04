@@ -7,7 +7,7 @@ teleport-delay-in-seconds: 0
 check-version:
   enabled: false
   warning-message: '&6[EasySetSpawn] &7New update available on the official page.'
-metrics: true
+metrics: false
 disable-spawn-command-in-pvp:
   enabled: false
   warning-message: '&cYou can not go to spawn when you are in PvP.'
